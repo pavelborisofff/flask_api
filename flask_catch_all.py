@@ -10,14 +10,14 @@ def catch_all(path):
     print('\n\n==== NEW CONNECTION ====\n', request.headers)
     if request.method == 'POST':
         return {'ip': request.headers.get('X-Real-IP', '127.0.0.1'),
-		'path': path,
+		'path': request.url.replace('http://', 'https://'),
 		'json': request.get_json(),
 		'form': request.form.to_dict(),
 		'data': json.loads(request.data, encoding='utf8')
 		}, 201
     else:
         return {'ip': request.headers.get('X-Real-IP', '127.0.0.1'),
-		'path': path,
+		'path': request.url.replace('http://', 'https://'),
 		'args': request.args.to_dict()
 		}, 200
 
